@@ -1,0 +1,15 @@
+CACHE MANIFEST
+# v1.0.0
+CACHE:
+./application.css  
+./application.js  
+./data.js  index.html
+
+./assets/ufonts.com_amasis-mt.woff2
+./assets/map.png
+./assets/map2.png
+./assets/ufonts.com_amasis-mt.woff2
+
+
+NETWORK:
+https://apps.zed.ee/expedition_test/
