@@ -24,6 +24,7 @@ class App extends Stage.Global
     window.location.reload()
     
   constructor: (params)->
+    @log params
     lang = location.search || "?et"
     window.lang = lang.substr(1)
     $("body").addClass(window.lang)
@@ -63,7 +64,10 @@ class App extends Stage.Global
     #  '/results': (params) => @Results.active( 'low': @RecordLow, 'high': @RecordHigh)
     Spine.Route.setup()
     #Spine.Route.setup(shim: true)
-    @index.active()
+    if params.skip_index
+      @intro.active( test:'quiz' )
+    else
+      @index.active()
     #@navigate('/intro', trans: 'right')
        
 module.exports = App

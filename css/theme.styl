@@ -16,7 +16,7 @@ for num in (1 2 3 4 6 7 8 9 10) {
     font_size = num / 10
     page_width = num * 192
     page_height = num * 108
-	@media only screen  and (min-width: page_width px) {
+	@media only screen and (max-height:1200px) and (min-width: page_width px) {
         body {
             font-size: font_size em;
         }

@@ -1,6 +1,6 @@
 <div>
   <h2><%-app_data.messages[lang].app.result %></h2>
-  <% for i, result of  app_data.tests.personality[lang].results: %>
+  <% for i, result of  app_data.tests[@test][lang].results: %>
     <% if window.points >= result[0]: %>
       <h3><%-window.points%> p <%- result[1] %></h3>
     <% break %>

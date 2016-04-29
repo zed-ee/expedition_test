@@ -12,7 +12,6 @@ class Quiz extends Panel
     @test = 'personality'
     super
     @ind = 0;
-    @render()
   
   render: =>
     @log @test, lang

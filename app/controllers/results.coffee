@@ -11,7 +11,6 @@ class Quiz extends Panel
   constructor: ->
     @test = 'personality'
     super
-    @render()
   
   render: =>
     @log @test, lang

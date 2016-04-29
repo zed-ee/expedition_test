@@ -8,11 +8,11 @@ class Intro extends Panel
   events:
     'click button': 'next'  
 	
-  constructor: ->
+  constructor:() ->
     @test = 'personality'
     super
-    @render()
     window.points = 0
+    
   render: =>
     @log @test, lang
     @html require('views/intro')(@)

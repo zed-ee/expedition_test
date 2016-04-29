@@ -12,6 +12,8 @@ app_data = {
             start:'Alusta',
             next:'Järgmine',
             result:'Sinu tulemus',
+            options: ["a)","b)","c)"],
+            correct_answer:"Õige vastus"            
           },
 		},
       en: {
@@ -22,6 +24,8 @@ app_data = {
             start:'Start',
             next:'Next',
             result:'Your score',
+            options: ["a)","b)","c)"],
+            correct_answer:"Correct answer"    
           },
 		},
 	},
