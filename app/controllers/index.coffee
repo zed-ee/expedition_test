@@ -20,6 +20,6 @@ class Index extends Panel
   next: (e) ->
     @log $(e.target)
     #@navigate('/intro', e.target.id, trans: 'right')
-    @navigate('/intro', e.target.id, trans: 'right')
+    @navigate('/intro', e.currentTarget.id, trans: 'right')
 	
 module.exports = Index

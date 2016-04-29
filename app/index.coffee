@@ -26,6 +26,7 @@ class App extends Stage.Global
   constructor: (params)->
     lang = location.search || "?et"
     window.lang = lang.substr(1)
+    $("body").addClass(window.lang)
     super
     ##@header.append(@spectrum)
     #@app_data = params.data

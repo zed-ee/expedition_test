@@ -1,3 +1,0 @@
-<img src="<%-app_data.tests.personality[lang].questions[@ind].image %>">
-<h2><%==app_data.tests.personality[lang].questions[@ind].answer %></h2>
-<button><%-app_data.messages[lang].app.next%></button>

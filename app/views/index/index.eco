@@ -1,6 +1,6 @@
 <div class="test" test-num="0">
 <% for id, test of  app_data.tests: %>
-<div id="<%= id %>" class="button"><%= test[lang].title %></div>
+<div id="<%= id %>" class="button"><span><%= test[lang].title %></span></div>
 <% end %>
 
 </div>
