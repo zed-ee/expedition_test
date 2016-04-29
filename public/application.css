@@ -340,3 +340,6 @@ body.stage > footer {
 #quiz1 article .clothing.a5 h2 {
   font-size: 1.6em;
 }
+body.en .index .test div span {
+  font-size: 0.6em;
+}

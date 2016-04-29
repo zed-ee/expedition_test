@@ -23935,7 +23935,7 @@ if (typeof JSON !== 'object') {
 
     Index.prototype.next = function(e) {
       this.log($(e.target));
-      return this.navigate('/intro', e.target.id, {
+      return this.navigate('/intro', e.currentTarget.id, {
         trans: 'right'
       });
     };
@@ -24155,6 +24155,7 @@ if (typeof JSON !== 'object') {
       var lang;
       lang = location.search || "?et";
       window.lang = lang.substr(1);
+      $("body").addClass(window.lang);
       App.__super__.constructor.apply(this, arguments);
       this.index = new Index;
       this.intro = new Intro;
@@ -24440,9 +24441,9 @@ module.exports = content;}, "views/index/index": function(exports, require, modu
         test = ref[id];
         __out.push('\n<div id="');
         __out.push(__sanitize(id));
-        __out.push('" class="button">');
+        __out.push('" class="button"><span>');
         __out.push(__sanitize(test[lang].title));
-        __out.push('</div>\n');
+        __out.push('</span></div>\n');
       }
     
       __out.push('\n\n</div>');
