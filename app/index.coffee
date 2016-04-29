@@ -5,9 +5,10 @@ Spine   = require('spine')
 {Panel}          = require('spine.mobile')
 #Startup = require('controllers/startup')
 Index = require('controllers/index')
-#Question = require('controllers/question')
-#Answer = require('controllers/answer')
-#Results = require('controllers/results')
+Intro = require('controllers/intro')
+Quiz = require('controllers/quiz')
+Answer = require('controllers/answer')
+Results = require('controllers/results')
 
 class App extends Stage.Global
   events:
@@ -29,6 +30,10 @@ class App extends Stage.Global
     ##@header.append(@spectrum)
     #@app_data = params.data
     @index = new Index
+    @intro = new Intro
+    @quiz = new Quiz
+    @answer = new Answer
+    @results = new Results
     #@introLow = new Intro(mode:'low',page: 'intro', next_page: '/play_low')
     #@PlayLow = new Play('low')
     #@intro2Low = new Intro(mode:'low',page: 'intro2', next_page: '/record_low')
@@ -38,16 +43,15 @@ class App extends Stage.Global
     #@intro2High = new Intro(mode:'high',page: 'intro2', next_page: '/record_high')
     #@RecordHigh = new Record('high', @)
     #@Results = new Results
-
-    @setLang = new Panel
-    @index.active()
-    
-    
-    #@routes
-    #  '/':        (params) -> @intro.active(params)
-    #  '/en':        (params) -> @intro.active(params)
-    #  '/et':        (params) -> @intro.active(params)
-    #  '/intro_low': (params) -> @introLow.active(params)
+    #@setLang = new Panel
+    @routes
+      '/':        (params) -> @index.active(params)
+      '/en':        (params) -> @index.active(params)
+      '/et':        (params) -> @index.active(params)
+      '/intro/:test': (params) -> @intro.active(params)
+      '/quiz/:test/:page': (params) -> @quiz.active(params)
+      '/answer/:test/:page': (params) -> @answer.active(params)
+      '/results/:test': (params) -> @results.active(params)
     #  '/play_low': (params) -> @PlayLow.active(params)
     #  '/intro2_low': (params) -> @intro2Low.active(params)
     #  '/record_low': (params) -> @RecordLow.active(params)
@@ -56,5 +60,9 @@ class App extends Stage.Global
     #  '/intro2_high': (params) -> @intro2High.active(params)
     #  '/record_high': (params) -> @RecordHigh.active(params)
     #  '/results': (params) => @Results.active( 'low': @RecordLow, 'high': @RecordHigh)
+    Spine.Route.setup()
+    #Spine.Route.setup(shim: true)
+    @index.active()
+    #@navigate('/intro', trans: 'right')
        
 module.exports = App

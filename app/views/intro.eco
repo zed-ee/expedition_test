@@ -1,0 +1,2 @@
+<h1><%=app_data.tests[@test][lang].intro.title%></h1>
+<button><%=app_data.messages[lang].app.start%></button>

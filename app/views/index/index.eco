@@ -1,6 +1,6 @@
 <div class="test" test-num="0">
-<% for val, idx in app_data.messages[lang].tests: %>
-<div id="test<%= idx+1 %>"><%= val.title %></div>
+<% for id, test of  app_data.tests: %>
+<div id="<%= id %>" class="button"><%= test[lang].title %></div>
 <% end %>
 
 </div>

@@ -23837,6 +23837,69 @@ if (typeof JSON !== 'object') {
     }
 
 }());
+}, "controllers/answer": function(exports, require, module) {(function() {
+  var Panel, Quiz, Spine,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Spine = require('spine');
+
+  Panel = require('spine.mobile').Panel;
+
+  Quiz = (function(superClass) {
+    extend(Quiz, superClass);
+
+    Quiz.prototype.className = 'answer';
+
+    Quiz.prototype.events = {
+      'click button': 'next'
+    };
+
+    function Quiz() {
+      this.render = bind(this.render, this);
+      this.test = 'personality';
+      Quiz.__super__.constructor.apply(this, arguments);
+      this.ind = 0;
+      this.render();
+    }
+
+    Quiz.prototype.render = function() {
+      this.log(this.test, lang);
+      this.html(require('views/' + this.test + '/answer')(this));
+      return this.header.html(require('views/header'));
+    };
+
+    Quiz.prototype.next = function(e) {
+      var next_quiz;
+      this.log($(e.target).data());
+      next_quiz = this.ind++;
+      if (app_data.tests[next_quiz]) {
+        return this.navigate('/quiz', this.test, next_quiz, {
+          trans: 'right'
+        });
+      } else {
+        return this.navigate('/results', this.test, {
+          trans: 'right'
+        });
+      }
+    };
+
+    Quiz.prototype.active = function(params) {
+      this.test = params.test;
+      this.ind = params.page;
+      this.log(params);
+      this.render();
+      return Quiz.__super__.active.apply(this, arguments);
+    };
+
+    return Quiz;
+
+  })(Panel);
+
+  module.exports = Quiz;
+
+}).call(this);
 }, "controllers/index": function(exports, require, module) {(function() {
   var Index, Panel, Spine,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -23863,12 +23926,13 @@ if (typeof JSON !== 'object') {
     }
 
     Index.prototype.render = function() {
-      return this.html(require('views/index/index')(this));
+      this.html(require('views/index/index')(this));
+      return this.footer.html(require('views/index/footer'));
     };
 
     Index.prototype.next = function(e) {
-      this.log(e);
-      return this.navigate('/intro', {
+      this.log($(e.target));
+      return this.navigate('/intro', e.target.id, {
         trans: 'right'
       });
     };
@@ -23880,8 +23944,168 @@ if (typeof JSON !== 'object') {
   module.exports = Index;
 
 }).call(this);
+}, "controllers/intro": function(exports, require, module) {(function() {
+  var Intro, Panel, Spine,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Spine = require('spine');
+
+  Panel = require('spine.mobile').Panel;
+
+  Intro = (function(superClass) {
+    extend(Intro, superClass);
+
+    Intro.prototype.className = 'intro';
+
+    Intro.prototype.events = {
+      'click button': 'next'
+    };
+
+    function Intro() {
+      this.render = bind(this.render, this);
+      this.test = 'personality';
+      Intro.__super__.constructor.apply(this, arguments);
+      this.render();
+      window.points = 0;
+    }
+
+    Intro.prototype.render = function() {
+      this.log(this.test, lang);
+      return this.html(require('views/intro')(this));
+    };
+
+    Intro.prototype.next = function(e) {
+      this.log($(e.target));
+      return this.navigate('/quiz', this.test, 0, {
+        trans: 'right'
+      });
+    };
+
+    Intro.prototype.active = function(params) {
+      this.test = params.test;
+      this.log(params);
+      this.render();
+      return Intro.__super__.active.apply(this, arguments);
+    };
+
+    return Intro;
+
+  })(Panel);
+
+  module.exports = Intro;
+
+}).call(this);
+}, "controllers/quiz": function(exports, require, module) {(function() {
+  var Panel, Quiz, Spine,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Spine = require('spine');
+
+  Panel = require('spine.mobile').Panel;
+
+  Quiz = (function(superClass) {
+    extend(Quiz, superClass);
+
+    Quiz.prototype.className = 'quiz';
+
+    Quiz.prototype.events = {
+      'click li': 'next'
+    };
+
+    function Quiz() {
+      this.render = bind(this.render, this);
+      this.test = 'personality';
+      Quiz.__super__.constructor.apply(this, arguments);
+      this.ind = 0;
+      this.render();
+    }
+
+    Quiz.prototype.render = function() {
+      this.log(this.test, lang);
+      this.html(require('views/' + this.test + '/quiz')(this));
+      return this.header.html(require('views/header'));
+    };
+
+    Quiz.prototype.next = function(e) {
+      this.log($(e.target).data());
+      window.points += $(e.target).data().points;
+      this.log("points:", window.points);
+      return this.navigate('/answer', this.test, this.ind, {
+        trans: 'right'
+      });
+    };
+
+    Quiz.prototype.active = function(params) {
+      this.test = params.test;
+      this.ind = params.page;
+      this.log(params);
+      this.render();
+      return Quiz.__super__.active.apply(this, arguments);
+    };
+
+    return Quiz;
+
+  })(Panel);
+
+  module.exports = Quiz;
+
+}).call(this);
+}, "controllers/results": function(exports, require, module) {(function() {
+  var Panel, Quiz, Spine,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  Spine = require('spine');
+
+  Panel = require('spine.mobile').Panel;
+
+  Quiz = (function(superClass) {
+    extend(Quiz, superClass);
+
+    Quiz.prototype.className = 'result';
+
+    Quiz.prototype.events = {
+      'click button': 'next'
+    };
+
+    function Quiz() {
+      this.render = bind(this.render, this);
+      this.test = 'personality';
+      Quiz.__super__.constructor.apply(this, arguments);
+      this.render();
+    }
+
+    Quiz.prototype.render = function() {
+      this.log(this.test, lang);
+      this.html(require('views/results')(this));
+      return this.header.html(require('views/header'));
+    };
+
+    Quiz.prototype.next = function(e) {
+      return this.log($(e.target).data());
+    };
+
+    Quiz.prototype.active = function(params) {
+      this.test = params.test;
+      this.log(params);
+      this.render();
+      return Quiz.__super__.active.apply(this, arguments);
+    };
+
+    return Quiz;
+
+  })(Panel);
+
+  module.exports = Quiz;
+
+}).call(this);
 }, "index": function(exports, require, module) {(function() {
-  var App, Index, Panel, Spine, Stage,
+  var Answer, App, Index, Intro, Panel, Quiz, Results, Spine, Stage,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
@@ -23895,6 +24119,14 @@ if (typeof JSON !== 'object') {
   Panel = require('spine.mobile').Panel;
 
   Index = require('controllers/index');
+
+  Intro = require('controllers/intro');
+
+  Quiz = require('controllers/quiz');
+
+  Answer = require('controllers/answer');
+
+  Results = require('controllers/results');
 
   App = (function(superClass) {
     extend(App, superClass);
@@ -23922,7 +24154,34 @@ if (typeof JSON !== 'object') {
       window.lang = lang.substr(1);
       App.__super__.constructor.apply(this, arguments);
       this.index = new Index;
-      this.setLang = new Panel;
+      this.intro = new Intro;
+      this.quiz = new Quiz;
+      this.answer = new Answer;
+      this.results = new Results;
+      this.routes({
+        '/': function(params) {
+          return this.index.active(params);
+        },
+        '/en': function(params) {
+          return this.index.active(params);
+        },
+        '/et': function(params) {
+          return this.index.active(params);
+        },
+        '/intro/:test': function(params) {
+          return this.intro.active(params);
+        },
+        '/quiz/:test/:page': function(params) {
+          return this.quiz.active(params);
+        },
+        '/answer/:test/:page': function(params) {
+          return this.answer.active(params);
+        },
+        '/results/:test': function(params) {
+          return this.results.active(params);
+        }
+      });
+      Spine.Route.setup();
       this.index.active();
     }
 
@@ -23955,7 +24214,7 @@ if (typeof JSON !== 'object') {
   require('spine.mobile');
 
 }).call(this);
-}, "views/index/index": function(exports, require, module) {var content = function(__obj) {
+}, "views/clothing/answer": function(exports, require, module) {var content = function(__obj) {
   if (!__obj) __obj = {};
   var __out = [], __capture = function(callback) {
     var out = __out, result;
@@ -23994,19 +24253,477 @@ if (typeof JSON !== 'object') {
   }
   (function() {
     (function() {
-      var i, idx, len, ref, val;
+    
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/clothing/quiz": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+    
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/header": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<div class="restart">');
+    
+      __out.push(app_data.messages[lang].app.restart);
+    
+      __out.push('</div>\n<div class="set_lang">');
+    
+      __out.push(app_data.messages[lang].app.next_lang);
+    
+      __out.push('</div>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/index/footer": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<div class="set_lang" href="#/en">');
+    
+      __out.push(__sanitize(app_data.messages[lang].lang));
+    
+      __out.push('</div>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/index/index": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      var id, ref, test;
     
       __out.push('<div class="test" test-num="0">\n');
     
-      ref = app_data.messages[lang].tests;
-      for (idx = i = 0, len = ref.length; i < len; idx = ++i) {
-        val = ref[idx];
-        __out.push('\n<div>');
-        __out.push(__sanitize(val.title));
+      ref = app_data.tests;
+      for (id in ref) {
+        test = ref[id];
+        __out.push('\n<div id="');
+        __out.push(__sanitize(id));
+        __out.push('" class="button">');
+        __out.push(__sanitize(test[lang].title));
         __out.push('</div>\n');
       }
     
       __out.push('\n\n</div>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/intro": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<h1>');
+    
+      __out.push(__sanitize(app_data.tests[this.test][lang].intro.title));
+    
+      __out.push('</h1>\n<button>');
+    
+      __out.push(__sanitize(app_data.messages[lang].app.start));
+    
+      __out.push('</button>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/personality/answer": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      var __sanitize;
+    
+      __out.push('<img src="');
+    
+      __out.push(app_data.tests.personality[lang].questions[this.ind].image);
+    
+      __out.push('">\n<h2>');
+    
+      __out.push(__sanitize = app_data.tests.personality[lang].questions[this.ind].answer);
+    
+      __out.push('</h2>\n<button>');
+    
+      __out.push(app_data.messages[lang].app.next);
+    
+      __out.push('</button>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/personality/quiz": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      var __sanitize, answer, i, ref;
+    
+      __out.push('<img src="');
+    
+      __out.push(app_data.tests.personality[lang].questions[this.ind].image);
+    
+      __out.push('">\n<h2>');
+    
+      __out.push(__sanitize = app_data.tests.personality[lang].questions[this.ind].question);
+    
+      __out.push('</h2>\n<ol>\n');
+    
+      ref = app_data.tests.personality[lang].questions[this.ind].options;
+      for (i in ref) {
+        answer = ref[i];
+        __out.push('\n<li data-points="');
+        __out.push(app_data.tests.personality[lang].questions[this.ind].points[i]);
+        __out.push('" class="button">');
+        __out.push(answer);
+        __out.push('</li>\n');
+      }
+    
+      __out.push('\n</ol>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+module.exports = content;}, "views/results": function(exports, require, module) {var content = function(__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      var i, ref, result;
+    
+      __out.push('<div>\n  <h2>');
+    
+      __out.push(app_data.messages[lang].app.result);
+    
+      __out.push('</h2>\n  ');
+    
+      ref = app_data.tests.personality[lang].results;
+      for (i in ref) {
+        result = ref[i];
+        __out.push('\n    ');
+        if (window.points >= result[0]) {
+          __out.push('\n      <h3>');
+          __out.push(window.points);
+          __out.push(' p ');
+          __out.push(result[1]);
+          __out.push('</h3>\n    ');
+          break;
+          __out.push('\n    ');
+        }
+        __out.push('\n  ');
+      }
+    
+      __out.push('\n</div>');
     
     }).call(this);
     

@@ -1,0 +1,2 @@
+<div class="restart"><%- app_data.messages[lang].app.restart %></div>
+<div class="set_lang"><%- app_data.messages[lang].app.next_lang %></div>

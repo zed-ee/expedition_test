@@ -1,0 +1,7 @@
+<img src="<%-app_data.tests.personality[lang].questions[@ind].image %>">
+<h2><%==app_data.tests.personality[lang].questions[@ind].question %></h2>
+<ol>
+<% for i, answer of  app_data.tests.personality[lang].questions[@ind].options: %>
+<li data-points="<%-app_data.tests.personality[lang].questions[@ind].points[i]%>" class="button"><%- answer %></li>
+<% end %>
+</ol>
