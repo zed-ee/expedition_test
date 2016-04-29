@@ -1,1 +1,1 @@
-<div class="set_lang" href="#/en"><%=app_data.messages[lang].lang %></div>
+<div class="set_lang" href="#/en"><%=app_data.messages[lang].app.lang %></div>

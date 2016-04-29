@@ -210,7 +210,7 @@ body.stage > footer {
 .quiz header,
 .result header,
 .answer header {
-  height: 5em;
+  height: 7em;
 }
 .quiz header .restart,
 .result header .restart,
@@ -255,7 +255,7 @@ body.stage > footer {
   text-align: center;
 }
 .quiz article img {
-  width: 48em;
+  height: 29em;
 }
 .quiz article h2 {
   font-size: 3.86em;
@@ -265,7 +265,7 @@ body.stage > footer {
   width: 33em;
   margin: 0;
   background: #fff;
-  padding: 0.1em 15em;
+  padding: 0.1em 4.1em 0.1em 15em;
   font-size: 2.3em;
   list-style-type: lower-alpha;
 }
@@ -277,7 +277,7 @@ body.stage > footer {
   text-align: center;
 }
 .answer article img {
-  width: 48em;
+  height: 29em;
 }
 .answer article h2 {
   text-align: left;
@@ -307,4 +307,36 @@ body.stage > footer {
 }
 .result article > div h3 {
   font-size: 3em;
+}
+.quiz .clothing img {
+  display: none;
+}
+.quiz .clothing h2 {
+  font-size: 4em;
+  margin: 3.5em 3em;
+}
+#quiz1 article .personality.q5 h2 {
+  font-size: 2.2em;
+}
+#quiz1 article .personality.q8 h2,
+#quiz1 article .personality.a4 h2 {
+  font-size: 2.5em;
+}
+#quiz1 article .clothing.a1 h2 {
+  font-size: 2.2em;
+}
+#quiz1 article .clothing.a3 h2,
+#quiz1 article .clothing.a4 h2,
+#quiz1 article .clothing.a6 h2,
+#quiz1 article .clothing.a7 h2,
+#quiz1 article .clothing.a8 h2,
+#quiz1 article .clothing.a9 h2 {
+  font-size: 2.5em;
+}
+#quiz1 article .clothing.q1 h2,
+#quiz1 article .clothing.q5 h2 {
+  font-size: 3.5em;
+}
+#quiz1 article .clothing.a5 h2 {
+  font-size: 1.6em;
 }

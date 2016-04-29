@@ -16,7 +16,7 @@ class Quiz extends Panel
   
   render: =>
     @log @test, lang
-    @html require('views/'+@test+'/quiz')(@)
+    @html require('views/quiz')(@)
     @header.html require('views/header')
 
     

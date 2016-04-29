@@ -23853,7 +23853,8 @@ if (typeof JSON !== 'object') {
     Quiz.prototype.className = 'answer';
 
     Quiz.prototype.events = {
-      'click button': 'next'
+      'click button': 'next',
+      'h2 button': 'next'
     };
 
     function Quiz() {
@@ -23866,15 +23867,17 @@ if (typeof JSON !== 'object') {
 
     Quiz.prototype.render = function() {
       this.log(this.test, lang);
-      this.html(require('views/' + this.test + '/answer')(this));
+      this.html(require('views/answer')(this));
       return this.header.html(require('views/header'));
     };
 
     Quiz.prototype.next = function(e) {
       var next_quiz;
       this.log($(e.target).data());
-      next_quiz = this.ind++;
-      if (app_data.tests[next_quiz]) {
+      next_quiz = this.ind + 1;
+      this.log("next", this.ind, this.test, next_quiz, app_data.tests[this.test][lang].questions.length);
+      if (next_quiz < app_data.tests[this.test][lang].questions.length) {
+        this.log(this.ind, next_quiz);
         return this.navigate('/quiz', this.test, next_quiz, {
           trans: 'right'
         });
@@ -23887,7 +23890,7 @@ if (typeof JSON !== 'object') {
 
     Quiz.prototype.active = function(params) {
       this.test = params.test;
-      this.ind = params.page;
+      this.ind = parseInt(params.page);
       this.log(params);
       this.render();
       return Quiz.__super__.active.apply(this, arguments);
@@ -24026,7 +24029,7 @@ if (typeof JSON !== 'object') {
 
     Quiz.prototype.render = function() {
       this.log(this.test, lang);
-      this.html(require('views/' + this.test + '/quiz')(this));
+      this.html(require('views/quiz')(this));
       return this.header.html(require('views/header'));
     };
 
@@ -24214,7 +24217,7 @@ if (typeof JSON !== 'object') {
   require('spine.mobile');
 
 }).call(this);
-}, "views/clothing/answer": function(exports, require, module) {var content = function(__obj) {
+}, "views/answer": function(exports, require, module) {var content = function(__obj) {
   if (!__obj) __obj = {};
   var __out = [], __capture = function(callback) {
     var out = __out, result;
@@ -24253,54 +24256,29 @@ if (typeof JSON !== 'object') {
   }
   (function() {
     (function() {
+      var __sanitize;
     
+      __out.push('<div class="a');
     
-    }).call(this);
+      __out.push(this.ind);
     
-  }).call(__obj);
-  __obj.safe = __objSafe, __obj.escape = __escape;
-  return __out.join('');
-};
-module.exports = content;}, "views/clothing/quiz": function(exports, require, module) {var content = function(__obj) {
-  if (!__obj) __obj = {};
-  var __out = [], __capture = function(callback) {
-    var out = __out, result;
-    __out = [];
-    callback.call(this);
-    result = __out.join('');
-    __out = out;
-    return __safe(result);
-  }, __sanitize = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else if (typeof value !== 'undefined' && value != null) {
-      return __escape(value);
-    } else {
-      return '';
-    }
-  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
-  __safe = __obj.safe = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else {
-      if (!(typeof value !== 'undefined' && value != null)) value = '';
-      var result = new String(value);
-      result.ecoSafe = true;
-      return result;
-    }
-  };
-  if (!__escape) {
-    __escape = __obj.escape = function(value) {
-      return ('' + value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    };
-  }
-  (function() {
-    (function() {
+      __out.push(' ');
     
+      __out.push(this.test);
+    
+      __out.push('">\n<img src="');
+    
+      __out.push(app_data.tests[this.test][lang].questions[this.ind].image);
+    
+      __out.push('">\n<h2>');
+    
+      __out.push(__sanitize = app_data.tests[this.test][lang].questions[this.ind].answer);
+    
+      __out.push('</h2>\n<button>');
+    
+      __out.push(app_data.messages[lang].app.next);
+    
+      __out.push('</button>\n</div>');
     
     }).call(this);
     
@@ -24404,7 +24382,7 @@ module.exports = content;}, "views/index/footer": function(exports, require, mod
     (function() {
       __out.push('<div class="set_lang" href="#/en">');
     
-      __out.push(__sanitize(app_data.messages[lang].lang));
+      __out.push(__sanitize(app_data.messages[lang].app.lang));
     
       __out.push('</div>');
     
@@ -24530,68 +24508,7 @@ module.exports = content;}, "views/intro": function(exports, require, module) {v
   __obj.safe = __objSafe, __obj.escape = __escape;
   return __out.join('');
 };
-module.exports = content;}, "views/personality/answer": function(exports, require, module) {var content = function(__obj) {
-  if (!__obj) __obj = {};
-  var __out = [], __capture = function(callback) {
-    var out = __out, result;
-    __out = [];
-    callback.call(this);
-    result = __out.join('');
-    __out = out;
-    return __safe(result);
-  }, __sanitize = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else if (typeof value !== 'undefined' && value != null) {
-      return __escape(value);
-    } else {
-      return '';
-    }
-  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
-  __safe = __obj.safe = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else {
-      if (!(typeof value !== 'undefined' && value != null)) value = '';
-      var result = new String(value);
-      result.ecoSafe = true;
-      return result;
-    }
-  };
-  if (!__escape) {
-    __escape = __obj.escape = function(value) {
-      return ('' + value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    };
-  }
-  (function() {
-    (function() {
-      var __sanitize;
-    
-      __out.push('<img src="');
-    
-      __out.push(app_data.tests.personality[lang].questions[this.ind].image);
-    
-      __out.push('">\n<h2>');
-    
-      __out.push(__sanitize = app_data.tests.personality[lang].questions[this.ind].answer);
-    
-      __out.push('</h2>\n<button>');
-    
-      __out.push(app_data.messages[lang].app.next);
-    
-      __out.push('</button>');
-    
-    }).call(this);
-    
-  }).call(__obj);
-  __obj.safe = __objSafe, __obj.escape = __escape;
-  return __out.join('');
-};
-module.exports = content;}, "views/personality/quiz": function(exports, require, module) {var content = function(__obj) {
+module.exports = content;}, "views/quiz": function(exports, require, module) {var content = function(__obj) {
   if (!__obj) __obj = {};
   var __out = [], __capture = function(callback) {
     var out = __out, result;
@@ -24632,27 +24549,35 @@ module.exports = content;}, "views/personality/quiz": function(exports, require,
     (function() {
       var __sanitize, answer, i, ref;
     
-      __out.push('<img src="');
+      __out.push('<div class="q');
     
-      __out.push(app_data.tests.personality[lang].questions[this.ind].image);
+      __out.push(this.ind);
     
-      __out.push('">\n<h2>');
+      __out.push(' ');
     
-      __out.push(__sanitize = app_data.tests.personality[lang].questions[this.ind].question);
+      __out.push(this.test);
     
-      __out.push('</h2>\n<ol>\n');
+      __out.push('">\n  <img src="');
     
-      ref = app_data.tests.personality[lang].questions[this.ind].options;
+      __out.push(app_data.tests[this.test][lang].questions[this.ind].image);
+    
+      __out.push('">\n  <h2>');
+    
+      __out.push(__sanitize = app_data.tests[this.test][lang].questions[this.ind].question);
+    
+      __out.push('</h2>\n  <ol>\n  ');
+    
+      ref = app_data.tests[this.test][lang].questions[this.ind].options;
       for (i in ref) {
         answer = ref[i];
-        __out.push('\n<li data-points="');
-        __out.push(app_data.tests.personality[lang].questions[this.ind].points[i]);
+        __out.push('\n  <li data-points="');
+        __out.push(app_data.tests[this.test][lang].questions[this.ind].points[i]);
         __out.push('" class="button">');
         __out.push(answer);
-        __out.push('</li>\n');
+        __out.push('</li>\n  ');
       }
     
-      __out.push('\n</ol>');
+      __out.push('\n  </ol>\n</div>');
     
     }).call(this);
     
