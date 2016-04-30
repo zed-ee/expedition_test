@@ -63,47 +63,47 @@ body {
 * {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-@media only screen and (min-width: 192px) {
+@media only screen and (max-height: 1200px) and (min-width: 192px) {
   body {
     font-size: 0.1em;
   }
 }
-@media only screen and (min-width: 384px) {
+@media only screen and (max-height: 1200px) and (min-width: 384px) {
   body {
     font-size: 0.2em;
   }
 }
-@media only screen and (min-width: 576px) {
+@media only screen and (max-height: 1200px) and (min-width: 576px) {
   body {
     font-size: 0.3em;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (max-height: 1200px) and (min-width: 768px) {
   body {
     font-size: 0.4em;
   }
 }
-@media only screen and (min-width: 1152px) {
+@media only screen and (max-height: 1200px) and (min-width: 1152px) {
   body {
     font-size: 0.6em;
   }
 }
-@media only screen and (min-width: 1344px) {
+@media only screen and (max-height: 1200px) and (min-width: 1344px) {
   body {
     font-size: 0.7em;
   }
 }
-@media only screen and (min-width: 1536px) {
+@media only screen and (max-height: 1200px) and (min-width: 1536px) {
   body {
     font-size: 0.8em;
   }
 }
-@media only screen and (min-width: 1728px) {
+@media only screen and (max-height: 1200px) and (min-width: 1728px) {
   body {
     font-size: 0.9em;
   }
 }
-@media only screen and (min-width: 1920px) {
+@media only screen and (max-height: 1200px) and (min-width: 1920px) {
   body {
     font-size: 1em;
   }
@@ -193,7 +193,7 @@ body.stage > footer {
 .index > footer {
   background-size: 23em;
   position: absolute;
-  bottom: 0;
+  bottom: 4em;
   left: 50%;
   width: 23em;
   margin-left: -12em;
@@ -296,6 +296,9 @@ body.stage > footer {
   margin-top: 0;
   border: 0.06em solid #78c1df;
 }
+.answer article h3 {
+  display: none;
+}
 .result article > div {
   border: 0.3em solid #78c1df;
   text-align: center;
@@ -339,6 +342,52 @@ body.stage > footer {
 }
 #quiz1 article .clothing.a5 h2 {
   font-size: 1.6em;
+}
+#quiz2 .panel article {
+  margin-top: 16em;
+}
+#quiz2 .panel.quiz article ol {
+  padding: 0.1em 4.1em 0.1em 3em;
+  font-size: 4em;
+  width: 12em;
+}
+#quiz2 .panel.quiz article h2 {
+  font-size: 5em;
+  margin: 1em 0.2em;
+}
+#quiz2 .panel.quiz article .q7 h2 {
+  font-size: 3.9em;
+}
+#quiz2 .panel.answer article h2 {
+  text-align: justify;
+}
+#quiz2 .panel.answer article h3 {
+  font-size: 3em;
+  display: block;
+}
+#quiz2 .index .test div {
+  width: 11em;
+  margin: 1.8em 1.2em;
+  background: url("assets/map3.png");
+  float: left;
+  padding: 8.7em 0 1em;
+  font-size: 5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  font-kerning: inherit;
+  background-size: 11em;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+#quiz2 .index .test div span {
+  font-size: 0.9em;
+  display: block;
+  border: 0.1em solid #78c1df;
+  padding: 0.4em 0;
+}
+#quiz2 .index > footer {
+  bottom: 7em;
 }
 body.en .index .test div span {
   font-size: 0.7em;

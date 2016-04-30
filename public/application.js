@@ -23862,7 +23862,6 @@ if (typeof JSON !== 'object') {
       this.test = 'personality';
       Quiz.__super__.constructor.apply(this, arguments);
       this.ind = 0;
-      this.render();
     }
 
     Quiz.prototype.render = function() {
@@ -23970,7 +23969,6 @@ if (typeof JSON !== 'object') {
       this.render = bind(this.render, this);
       this.test = 'personality';
       Intro.__super__.constructor.apply(this, arguments);
-      this.render();
       window.points = 0;
     }
 
@@ -24024,7 +24022,6 @@ if (typeof JSON !== 'object') {
       this.test = 'personality';
       Quiz.__super__.constructor.apply(this, arguments);
       this.ind = 0;
-      this.render();
     }
 
     Quiz.prototype.render = function() {
@@ -24080,7 +24077,6 @@ if (typeof JSON !== 'object') {
       this.render = bind(this.render, this);
       this.test = 'personality';
       Quiz.__super__.constructor.apply(this, arguments);
-      this.render();
     }
 
     Quiz.prototype.render = function() {
@@ -24153,6 +24149,7 @@ if (typeof JSON !== 'object') {
       this.restart = bind(this.restart, this);
       this.set_lang = bind(this.set_lang, this);
       var lang;
+      this.log(params);
       lang = location.search || "?et";
       window.lang = lang.substr(1);
       $("body").addClass(window.lang);
@@ -24186,7 +24183,13 @@ if (typeof JSON !== 'object') {
         }
       });
       Spine.Route.setup();
-      this.index.active();
+      if (params.skip_index) {
+        this.intro.active({
+          test: 'quiz'
+        });
+      } else {
+        this.index.active();
+      }
     }
 
     return App;
@@ -24257,7 +24260,7 @@ if (typeof JSON !== 'object') {
   }
   (function() {
     (function() {
-      var __sanitize;
+      var __sanitize, i, ref, result;
     
       __out.push('<div class="a');
     
@@ -24271,7 +24274,27 @@ if (typeof JSON !== 'object') {
     
       __out.push(app_data.tests[this.test][lang].questions[this.ind].image);
     
-      __out.push('">\n<h2>');
+      __out.push('">\n  ');
+    
+      ref = app_data.tests[this.test][lang].questions[this.ind].points;
+      for (i in ref) {
+        result = ref[i];
+        __out.push('\n    ');
+        if (result === 1) {
+          __out.push('\n      <h3>');
+          __out.push(app_data.messages[lang].app.correct_answer);
+          __out.push(': ');
+          __out.push(app_data.messages[lang].app.options[i]);
+          __out.push(' ');
+          __out.push(app_data.tests[this.test][lang].questions[this.ind].options[i]);
+          __out.push('</h3>\n    ');
+          break;
+          __out.push('\n    ');
+        }
+        __out.push('\n  ');
+      }
+    
+      __out.push('\n\n</h3>\n<h2>');
     
       __out.push(__sanitize = app_data.tests[this.test][lang].questions[this.ind].answer);
     
@@ -24442,7 +24465,7 @@ module.exports = content;}, "views/index/index": function(exports, require, modu
         __out.push('\n<div id="');
         __out.push(__sanitize(id));
         __out.push('" class="button"><span>');
-        __out.push(__sanitize(test[lang].title));
+        __out.push(test[lang].title);
         __out.push('</span></div>\n');
       }
     
@@ -24633,7 +24656,7 @@ module.exports = content;}, "views/results": function(exports, require, module) 
     
       __out.push('</h2>\n  ');
     
-      ref = app_data.tests.personality[lang].results;
+      ref = app_data.tests[this.test][lang].results;
       for (i in ref) {
         result = ref[i];
         __out.push('\n    ');
