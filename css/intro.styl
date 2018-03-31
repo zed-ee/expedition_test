@@ -90,8 +90,15 @@
 .quiz
   article
     text-align: center
-    img
-      height: 29em
+    .img
+        position: relative
+        img
+          height: 29em        
+          margin-bottom: 1em;
+        span
+            position: absolute
+            bottom:0
+            right: 3em;
     h2
       font-size: 3.86em
     ol
@@ -105,12 +112,18 @@
         li
             margin: 0.6em 0
             cursor: pointer
-            
 .answer
   article
     text-align: center  
-    img
-      height: 29em    
+    .img
+        position: relative
+        img
+          height: 29em        
+          margin-bottom: 1em;
+        span
+            position: absolute
+            bottom:0
+            right: 3em;
     h2
       text-align: left;
       background: #FFF;
@@ -148,78 +161,6 @@
     h2
       font-size: 4em;
       margin: 3.5em 3em;
-#quiz1
-  article
-    .personality
-      &.q5 
-        h2
-          font-size: 2.2em
-          
-      &.q8, &.a4
-        h2
-          font-size: 2.5em
-          
-      
-    .clothing
-      &.a1
-        h2
-          font-size: 2.2em
-      &.a3, &.a4, &.a6, &.a7, &.a8, &.a9
-        h2
-          font-size: 2.5em
-      &.q1, &.q5
-        h2
-          font-size: 3.5em;
-      &.a5
-        h2
-          font-size: 1.6em;
-    
-    
-#quiz2
-  .panel
-    article
-      margin-top: 16em
-    &.quiz article 
-      ol
-        padding: 0.1em 4.1em 0.1em 3em;
-        font-size: 4em;
-        width: 12em;
-      h2
-        font-size: 5em;
-        margin: 1em 0.2em;
-      .q7 h2
-        font-size: 3.9em;
-        
-
-    &.answer article 
-      h2      
-        text-align:justify
-      h3
-        font-size: 3em
-        display:block
-  .index
-    .test
-      div
-        width: 11em;
-        margin: 1.8em 1.2em;
-        background: url("assets/map3.png");
-        float: left;
-        padding: 8.7em 0 1em;
-        font-size: 5em;
-        text-transform: uppercase;
-        font-weight: bold;
-        text-align: center;
-        font-kerning: inherit;
-        background-size: 11em;
-        background-repeat: no-repeat;
-        cursor: pointer
-        span
-          font-size: 0.9em
-          display: block
-          border: 0.1em solid #78c1df
-          padding: 0.4em 0
-    > footer
-      bottom: 7em
 
           
 /* english */

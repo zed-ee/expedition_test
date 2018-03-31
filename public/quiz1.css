@@ -1,0 +1,25 @@
+#quiz1 article .personality.q5 h2 {
+  font-size: 2.2em;
+}
+#quiz1 article .personality.q8 h2,
+#quiz1 article .personality.a4 h2 {
+  font-size: 2.5em;
+}
+#quiz1 article .clothing.a1 h2 {
+  font-size: 2.2em;
+}
+#quiz1 article .clothing.a3 h2,
+#quiz1 article .clothing.a4 h2,
+#quiz1 article .clothing.a6 h2,
+#quiz1 article .clothing.a7 h2,
+#quiz1 article .clothing.a8 h2,
+#quiz1 article .clothing.a9 h2 {
+  font-size: 2.5em;
+}
+#quiz1 article .clothing.q1 h2,
+#quiz1 article .clothing.q5 h2 {
+  font-size: 3.5em;
+}
+#quiz1 article .clothing.a5 h2 {
+  font-size: 1.6em;
+}

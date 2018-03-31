@@ -1,5 +1,8 @@
 <div class="a<%-@ind%> <%-@test%>">
-<img src="<%-app_data.tests[@test][lang].questions[@ind].image %>">
+  <div class="img">
+  <img src="<%-app_data.tests[@test][lang].questions[@ind].image %>">
+  <span class="reference"><%==app_data.tests[@test][lang].questions[@ind].reference %></span>
+  </div>
   <% for i, result of  app_data.tests[@test][lang].questions[@ind].points: %>
     <% if result == 1: %>
       <h3><%-app_data.messages[lang].app.correct_answer %>: <%-app_data.messages[lang].app.options[i]%> <%- app_data.tests[@test][lang].questions[@ind].options[i] %></h3>

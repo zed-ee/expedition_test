@@ -1,0 +1,47 @@
+#quiz2 .panel article {
+  margin-top: 16em;
+}
+#quiz2 .panel.quiz article ol {
+  padding: 0.1em 4.1em 0.1em 3em;
+  font-size: 4em;
+  width: 12em;
+}
+#quiz2 .panel.quiz article h2 {
+  font-size: 5em;
+  margin: 1em 0.2em;
+}
+#quiz2 .panel.quiz article .q7 h2 {
+  font-size: 3.9em;
+}
+#quiz2 .panel.answer article h2 {
+  text-align: justify;
+}
+#quiz2 .panel.answer article h3 {
+  font-size: 3em;
+  display: block;
+}
+#quiz2 .index .test div {
+  width: 11em;
+  margin: 1.8em 1.2em;
+  background: url("assets/map3.png");
+  float: left;
+  padding: 8.7em 0 1em;
+  font-size: 5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  font-kerning: inherit;
+  background-size: 11em;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+#quiz2 .index .test div span {
+  font-size: 0.9em;
+  display: block;
+  border: 0.1em solid #78c1df;
+  padding: 0.4em 0;
+}
+#quiz2 .index > footer {
+  bottom: 7em;
+}
+
