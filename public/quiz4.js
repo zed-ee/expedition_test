@@ -35,7 +35,7 @@ app_data = {
 				title:"Viktoriin / Quiz",
 				intro: {
 					button:'Alusta',
-					title: 'Kui hästi tunned kuritööd ja karistust?',
+					title: 'Kui hästi tunned rahvusülikooli ajalugu?',
 				},
 				questions: [
 				{
@@ -179,10 +179,10 @@ app_data = {
 
 			},
 			en: {
-				title:"Quiz of the exhibition<br> „Crime and Punishment“<br>",
+				title:"Viktoriin / Quiz",
 				intro: {
 					button:'Start',
-					title: 'How well do you know crimes and punishments?',
+					title: 'How well do you know the history of the Estonian National University?',
 				},
 				questions: [
 				{
